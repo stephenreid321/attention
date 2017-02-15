@@ -22,4 +22,11 @@ class Page
     p.link_with(:href => /page\/follow_mutator/).try(:click)
   end  
   
+  def unlike(account = self.account)
+    account.login unless account.logged_in
+    p = account.agent.get("https://m.facebook.com/#{fbid}")
+    p.link_with(:href => /unfan/).try(:click)
+  end 
+  
 end
+

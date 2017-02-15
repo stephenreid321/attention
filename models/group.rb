@@ -19,15 +19,13 @@ class Group
   def unfollow(account = self.account)
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/groups/#{fbid}?view=info&refid=18")
-    unfollow = page.link_with(:href => /subscriptions\/remove/)
-    unfollow.click if unfollow
+    page.link_with(:href => /subscriptions\/remove/).try(:click)
   end
   
   def leave(account = self.account)
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/group/leave/?group_id=#{fbid}&refid=18")
-    form = page.form_with(:action => '/a/group/leave/')
-    form.submit
+    page.form_with(:action => '/a/group/leave/').try(:submit)
   end
   
   def notification_level(level, account = self.account)
