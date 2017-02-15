@@ -11,13 +11,15 @@ class Account
   field :picture_uid, :type => String
   
   has_many :friends, :dependent => :destroy
-  
+  has_many :pages, :dependent => :destroy
+  has_many :groups, :dependent => :destroy
   
   
   def agent
     @agent ||= Mechanize.new
   end
   
+  attr_accessor :logged_in
   def login
     agent.get('https://m.facebook.com').form_with(id: 'login_form') do |form|
       form.field_with(name: 'email').value = ENV['FACEBOOK_USERNAME']
@@ -26,7 +28,7 @@ class Account
     puts 'logged in'
     @logged_in = true
   end  
-  
+    
   def load_friends
     login unless @logged_in
     page = agent.get('https://m.facebook.com/friends/center/friends')
@@ -47,6 +49,27 @@ class Account
     
   end
   
+  def load_pages
+    oauth_access_token = ENV['FACEBOOK_ACCESS_TOKEN']
+    @graph = Koala::Facebook::API.new(oauth_access_token)
+    likes = @graph.get_connections('me', 'likes')
+    while likes
+      likes.each { |page| pages.create! fbid: page['id'], name: page['name'] }
+      likes = likes.next_page
+    end
+  end
+  
+  def load_groups
+    login unless @logged_in
+    page = agent.get('https://m.facebook.com/groups/?seemore&refid=27')
+    page.search("a[href^='/groups/']").each { |a|        
+      fbid = a['href'].split('/groups/')[1].split('?')[0]
+      if fbid == fbid.to_i.to_s
+        groups.create! fbid: fbid, name: a.text
+      end
+    }
+  end
+
   
   
   # Dragonfly

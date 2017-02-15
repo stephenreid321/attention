@@ -82,6 +82,10 @@ GEM
     ipaddress (0.8.3)
     json (1.8.3)
     jwt (1.5.1)
+    koala (2.4.0)
+      addressable
+      faraday
+      multi_json (>= 1.3.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     mechanize (2.7.4)
@@ -204,6 +208,7 @@ DEPENDENCIES
   dragonfly
   dragonfly-s3_data_store
   erubis
+  koala
   mail
   mechanize
   mongoid
@@ -217,5 +222,8 @@ DEPENDENCIES
   rake
   will_paginate!
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.13.7

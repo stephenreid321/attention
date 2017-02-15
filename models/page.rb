@@ -1,22 +1,25 @@
 class Page
   include Mongoid::Document
   include Mongoid::Timestamps
+  
+  belongs_to :account
+  validates_presence_of :fbid, :account
 
-  page_ids = []
-
-  oauth_access_token = 'EAACEdEose0cBABNJN53CXHeZCz0CXn1erj8WhPyC8wYBAwFfcowqrcOlHCDusOrfqUm52QW3WPDAsaX5OX1OFKfB0GIOXk0JjI1e9WSSRZCajtKfU3zLxuHnmtI64jJnGeWyH2FFWE5O2ywsT2NjpnKnQzDtsUunCeF6RCNl6EZCbA0RZCcOD7y1UqryxDsa9RzbtiFpvgZDZD'
-  @graph = Koala::Facebook::API.new(oauth_access_token)
-  likes = @graph.get_connections('me', 'likes')
-  while likes
-    likes.each { |page| page_ids << page['id'] }
-    likes = likes.next_page
+  field :fbid, :type => String
+  field :name, :type => String
+          
+  def self.admin_fields
+    {      
+      :fbid => :text,
+      :name => :text,
+      :account_id => :lookup      
+    }
   end
-
-  page_ids.each_with_index { |page_id,i|
-    puts "#{i+1}/#{page_ids.count}"
-    page = a.get("https://m.facebook.com/#{page_id}")
-    unfollow = page.link_with(:href => /page\/follow_mutator/)
-    unfollow.click if unfollow
-  }  
-    
+  
+  def unfollow(account = self.account)
+    account.login unless account.logged_in
+    p = account.agent.get("https://m.facebook.com/#{fbid}")
+    p.link_with(:href => /page\/follow_mutator/).try(:click)
+  end  
+  
 end

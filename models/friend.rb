@@ -7,7 +7,7 @@ class Friend
 
   field :fbid, :type => String
   field :name, :type => String
-  field :mutual_friends, :type => String  
+  field :mutual_friends, :type => Integer  
           
   def self.admin_fields
     {      
@@ -18,8 +18,8 @@ class Friend
     }
   end
   
-  def unfollow
-    account.login unless @logged_in    
+  def unfollow(account = self.account)
+    account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/mbasic/more/?owner_id=#{fbid}&refid=17")      
     page.link_with(:href => /subscriptions\/remove/).try(:click)
   end

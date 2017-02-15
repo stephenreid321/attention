@@ -31,4 +31,5 @@ gem 'mail'
 # Interacting with other websites
 gem 'airbrake', '4.3.5'
 gem 'mechanize'
+gem 'koala'
 

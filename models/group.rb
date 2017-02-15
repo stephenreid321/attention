@@ -1,23 +1,41 @@
 class Group
   include Mongoid::Document
   include Mongoid::Timestamps
-
-  # $('#GroupDiscoverCard_membership ._4-u3 ._266w a').each(function() {
-  #   console.log($(this).attr('data-hovercard').split('?id=')[1].split('&')[0])
-  # })  
     
-  def leave
-    ### leave  
-    # page = a.get("https://m.facebook.com/group/leave/?group_id=#{group_id}&refid=18")
-    # form = page.form_with(:action => '/a/group/leave/')
-    # form ? form.submit : (puts "missing: #{group_id}")
+  belongs_to :account
+  validates_presence_of :fbid, :account
+
+  field :fbid, :type => String
+  field :name, :type => String
+          
+  def self.admin_fields
+    {      
+      :fbid => :text,
+      :name => :text,
+      :account_id => :lookup      
+    }
+  end  
+    
+  def unfollow(account = self.account)
+    account.login unless account.logged_in
+    page = account.agent.get("https://m.facebook.com/groups/#{fbid}?view=info&refid=18")
+    unfollow = page.link_with(:href => /subscriptions\/remove/)
+    unfollow.click if unfollow
   end
   
-  def notification_level
-    ### notification settings. level 2 - friends, level 3 - all   
-    page = a.get("https://m.facebook.com/group/settings/?group_id=#{group_id}&refid=18")
-    form = page.form_with(:action => "/a/group/settings/?group_id=#{group_id}")
-    form.radiobutton_with(:name => 'level', :value => '2').check
+  def leave(account = self.account)
+    account.login unless account.logged_in
+    page = account.agent.get("https://m.facebook.com/group/leave/?group_id=#{fbid}&refid=18")
+    form = page.form_with(:action => '/a/group/leave/')
+    form.submit
+  end
+  
+  def notification_level(level, account = self.account)
+    ### level 2 - friends, level 3 - all   
+    account.login unless account.logged_in
+    page = account.agent.get("https://m.facebook.com/group/settings/?group_id=#{fbid}&refid=18")
+    form = page.form_with(:action => "/a/group/settings/?group_id=#{fbid}")
+    form.radiobutton_with(:name => 'level', :value => "#{level}").check
     form.submit
   end
     
