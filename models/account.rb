@@ -13,6 +13,7 @@ class Account
   has_many :friends, :dependent => :destroy
   has_many :pages, :dependent => :destroy
   has_many :groups, :dependent => :destroy
+  has_many :messages, :dependent => :destroy
   
   
   def agent
@@ -68,6 +69,22 @@ class Account
         groups.create! fbid: fbid, name: a.text
       end
     }
+  end
+  
+  def load_messages
+    login unless @logged_in
+    page = agent.get('https://m.facebook.com/messages/?pageNum=0&selectable&pagination_direction=1&refid=11')    
+    while page
+      puts page.uri
+      page.search("a[href^='/messages/read/?tid=']").each { |a|
+        messages.create! tid: a['href'].split('tid=')[1].split('&refid')[0], who: a.text, last_active: (begin; Date.parse(a.parent.next.next.text); rescue; end)
+      }      
+      if next_link = page.link_with(:text => 'See Older Messages')
+        page = next_link.click
+      else
+        page = nil
+      end
+    end
   end
 
   
