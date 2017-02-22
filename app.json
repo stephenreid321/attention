@@ -1,0 +1,8 @@
+{
+  "name": "Attention",
+  "repository": "https://github.com/wordsandwriting/attention",
+  "addons": [
+    "mongolab",
+  ],
+  "success_url": "/admin/new/Account"
+}
