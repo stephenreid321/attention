@@ -21,3 +21,11 @@ Attention allows you to:
 *Messages*
 * Archive all your messages
 
+Instructions
+---
+* Deploy to Heroku using the button above (This app simulates actions via the Facebook mobile site thus requires your Facebook username and password.)
+* Start a console
+* Create an account with `Account.create name: 'Test User', email: 'test@example.com', password: 'test', time_zone: 'London'`
+* Load friends/groups/pages/messages with e.g `account.load_friends`
+* Perform bulk unfollows etc with `account.friends.each { |friend| friend.unfollow(account) }` 
+* Web front end at `/admin`
