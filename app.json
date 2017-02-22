@@ -7,7 +7,9 @@
   "env": {
     "FACEBOOK_USERNAME": {},
     "FACEBOOK_PASSWORD": {},
-    "FACEBOOK_ACCESS_TOKEN": {}
+    "FACEBOOK_ACCESS_TOKEN": {
+      "description": "Must have the user_likes access permission"
+    }
   },
   "success_url": "/admin/new/Account"
 }
