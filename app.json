@@ -2,7 +2,12 @@
   "name": "Attention",
   "repository": "https://github.com/wordsandwriting/attention",
   "addons": [
-    "mongolab",
+    "mongolab"
   ],
+  "env": {
+    "FACEBOOK_USERNAME": {},
+    "FACEBOOK_PASSWORD": {},
+    "FACEBOOK_ACCESS_TOKEN": {}
+  },
   "success_url": "/admin/new/Account"
 }
