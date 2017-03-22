@@ -33,15 +33,15 @@ class Account
   def load_friends
     login unless @logged_in
     page = agent.get('https://m.facebook.com/friends/center/friends')
-        
+    
     i = 1
     while page.search('#u_0_0 a')[0] do
-      puts i
+      puts i      
       page.search('td.v.s').each { |td|        
-        name = td.search('a.bm').text
+        name = td.search('a.bl').text
         puts name
-        fbid = td.search('a.bm').first['href'].split('uid=')[1].split('&')[0]
-        mutual_friends = td.search('.bn.bo').text.split(' ').first.to_i        
+        fbid = td.search('a.bl').first['href'].split('uid=')[1].split('&')[0]
+        mutual_friends = td.search('.bm.bn').text.split(' ').first.to_i        
         friends.create! fbid: fbid, name: name, mutual_friends: mutual_friends
       }
       page = agent.get('https://m.facebook.com'+ page.search('#u_0_0 a')[0]['href'])
