@@ -1,23 +1,24 @@
 class Message
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   belongs_to :account
   validates_presence_of :tid, :account
+  validates_uniqueness_of :tid, :scope => :account
 
   field :tid, :type => String
-  field :who, :type => String  
+  field :who, :type => String
   field :last_active, :type => Date
-          
+
   def self.admin_fields
-    {      
+    {
       :tid => :text,
       :who => :text,
       :last_active => :date,
-      :account_id => :lookup      
+      :account_id => :lookup
     }
   end
-  
+
   def archive(account = self.account)
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/messages/read/?tid=#{tid}&refid=11#fua")
@@ -30,7 +31,6 @@ class Message
         puts "skipped #{who or tid}"
       end
     end
-  end  
+  end
 
 end
-

@@ -7,6 +7,8 @@ class Account
   field :password, :type => String
   field :access_token, :type => String # must have user_likes permission
 
+  validates_uniqueness_of :email, :username, :access_token
+
   has_many :friends, :dependent => :destroy
   has_many :pages, :dependent => :destroy
   has_many :groups, :dependent => :destroy
@@ -25,6 +27,14 @@ class Account
     @logged_in = true
   end
 
+  def load
+    %w{friends pages groups messages}.each { |x| eval("load_#{x}") }
+  end
+
+  def clear
+    %w{friends pages groups messages}.each { |x| eval("#{x}.destroy_all") }
+  end
+
   def load_friends
     login unless @logged_in
     page = agent.get('https://m.facebook.com/friends/center/friends')
@@ -37,7 +47,7 @@ class Account
         puts name
         fbid = td.search('a').first['href'].split('uid=')[1].split('&')[0]
         mutual_friends = td.search('div').text.split(' ').first.to_i
-        friends.create! fbid: fbid, name: name, mutual_friends: mutual_friends
+        friends.create fbid: fbid, name: name, mutual_friends: mutual_friends
       }
       page = agent.get('https://m.facebook.com'+ page.search('#u_0_0 a')[0]['href'])
       i += 1
@@ -52,7 +62,7 @@ class Account
     while likes
       likes.each { |page|
         puts page['name']
-        pages.create! fbid: page['id'], name: page['name']
+        pages.create fbid: page['id'], name: page['name']
       }
       likes = likes.next_page
     end
@@ -66,7 +76,7 @@ class Account
       if fbid == fbid.to_i.to_s
         name = a.text
         puts name
-        groups.create! fbid: fbid, name: name
+        groups.create fbid: fbid, name: name
       end
     }
   end
@@ -79,7 +89,7 @@ class Account
       page.search("a[href^='/messages/read/?tid=']").each { |a|
         who = a.text
         puts who
-        messages.create! tid: a['href'].split('tid=')[1].split('&refid')[0], who: who, last_active: (begin; Date.parse(a.parent.next.next.text); rescue; end)
+        messages.create tid: a['href'].split('tid=')[1].split('&refid')[0], who: who, last_active: (begin; Date.parse(a.parent.next.next.text); rescue; end)
       }
       if next_link = page.link_with(:text => /see older messages/i)
         page = next_link.click
