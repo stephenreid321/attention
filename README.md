@@ -25,4 +25,4 @@ This app simulates actions via the Facebook mobile site thus requires your Faceb
 
 * Start a console and do `account = Account.create username: USERNAME, password: PASSWORD, access_token: ACCESS_TOKEN`
 * Load friends/groups/pages/messages with e.g `account.load_friends`
-* Perform bulk unfollows etc with `account.friends.each { |friend| friend.unfollow(account) }` 
+* Perform bulk unfollows etc with `account.friends.each { |friend| friend.unfollow(account) }`
