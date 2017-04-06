@@ -13,6 +13,7 @@ class Account
   has_many :pages, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_many :messages, :dependent => :destroy
+  has_many :events, :dependent => :destroy
 
   def agent
     @agent ||= Mechanize.new
@@ -27,12 +28,29 @@ class Account
     @logged_in = true
   end
 
-  def load
-    %w{friends pages groups messages}.each { |x| eval("load_#{x}") }
+  def clear
+    %w{friends pages groups messages events}.each { |x| eval("#{x}.destroy_all") }
   end
 
-  def clear
-    %w{friends pages groups messages}.each { |x| eval("#{x}.destroy_all") }
+  def load_events(page_id)
+    login unless @logged_in
+    page = agent.get("https://m.facebook.com/#{page_id}?v=events&is_past=1&refid=17")
+    
+    while page
+      page.search('div.bt.bu').each { |div|
+        title = div.search('h3').text
+        puts title
+        fbid = div.search('a').first['href'].split('/events/')[1].split('?')[0]
+        when_details = div.search('.cm')[1].try(:text)
+        location = div.search('.cm.cr .cs').map { |node| node.text }.join(', ')
+        events.create fbid: fbid, title: title, when_details: when_details, location: location
+      }
+      if next_link = page.link_with(:text => /see more events/i)
+        page = next_link.click
+      else
+        page = nil
+      end
+    end
   end
 
   def load_friends
