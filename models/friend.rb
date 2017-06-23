@@ -28,9 +28,10 @@ class Friend
   def get_info(account = self.account)
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/#{fbid}")
-    self.username = page.uri.path.split('/').last
-    about = page.link_with(:href => /\/about/).try(:click)
-    self.email = about.search("div[title='Email address'] td:last-child").text
+    u = page.uri.path.split('/').last
+    self.username = u unless u == 'profile.php'
+    about = page.link_with(:text => /About/).try(:click)
+    self.email = about.search("div[title='Email address'] td:last-child").try(:text)
     self.following = about.link_with(:text => 'Unfollow') ? true : false
     self.save
   end

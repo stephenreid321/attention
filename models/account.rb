@@ -60,7 +60,8 @@ class Account
     i = 1
     while page.search('#u_0_0 a')[0] do
       puts i
-      page.search('td.v.s').each { |td|
+      page.search('#friends_center_main > div')[1].search('> div').each { |div|
+        td = div.search('td').last
         name = td.search('a').text
         puts name
         fbid = td.search('a').first['href'].split('uid=')[1].split('&')[0]
