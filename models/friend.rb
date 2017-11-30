@@ -35,11 +35,24 @@ class Friend
     self.following = about.link_with(:text => 'Unfollow') ? true : false
     self.save
   end
+  
+  def follow(account = self.account)
+    account.login unless account.logged_in
+    page = account.agent.get("https://m.facebook.com/#{fbid}")
+    page.link_with(:href => /subscribe\.php/).try(:click)
+    page = account.agent.get("https://m.facebook.com/#{fbid}") # again
+    if page.link_with(:href => /subscribe\.php/)
+      raise "failed to follow #{name}"
+    else
+      update_attribute(:following, true) 
+    end
+  end  
 
   def unfollow(account = self.account)
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/mbasic/more/?owner_id=#{fbid}&refid=17")
     page.link_with(:href => /subscriptions\/remove/).try(:click)
+    update_attribute(:following, false)
   end
 
 end
