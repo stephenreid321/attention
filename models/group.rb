@@ -30,7 +30,7 @@ class Group
   end
 
   def notification_level(level, admin_level = level, account = self.account)
-    ### level 2 - friends, level 3 - all
+    ### 1: off, 2: friends, 3: all, 6: highlights
     account.login unless account.logged_in
     page = account.agent.get("https://m.facebook.com/group/settings/?group_id=#{fbid}&refid=18")
     form = page.form_with(:action => "/a/group/settings/?group_id=#{fbid}")

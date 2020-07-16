@@ -16,7 +16,11 @@ class Account
   has_many :events, :dependent => :destroy
 
   def agent
-    @agent ||= Mechanize.new
+    @agent ? @agent : (
+      @agent = Mechanize.new
+      # @agent.user_agent_alias
+      @agent
+    )
   end
 
   attr_accessor :logged_in
