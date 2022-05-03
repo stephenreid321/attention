@@ -1,23 +1,23 @@
 GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: 8113fddf4b506867e9af3aa59fe2df314b79860c
+  remote: https://github.com/mislav/will_paginate.git
+  revision: c732deeba65e709e6c5d223584e2fc4448a12334
   specs:
-    will_paginate (3.3.0)
+    will_paginate (3.3.1)
 
 GIT
-  remote: git://github.com/stephenreid321/activate-admin.git
-  revision: 96fba7fdffed273ece9310a68985b857ded37acf
+  remote: https://github.com/stephenreid321/activate-admin.git
+  revision: ef109899438aeacbd8bcb3f0c82f7e24e99588b1
   specs:
-    activate-admin (0.0.5)
+    activate-admin (0.0.11)
       activate-tools
       padrino
       will_paginate
 
 GIT
-  remote: git://github.com/stephenreid321/activate-tools.git
-  revision: f8e580db12c90b87143bca0eba34dcc54df10790
+  remote: https://github.com/stephenreid321/activate-tools.git
+  revision: 22965b0b1cc2f1dd8cdb46c1efd4c459601a99f8
   specs:
-    activate-tools (0.0.11)
+    activate-tools (0.0.17)
       padrino
 
 GEM
@@ -117,14 +117,14 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-protection (2.0.2)
+    rack-protection (2.2.0)
       rack
     rake (13.0.1)
-    ruby2_keywords (0.0.2)
-    sinatra (2.0.2)
+    ruby2_keywords (0.0.5)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.2)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     thor (0.20.3)
     thread_safe (0.3.6)
@@ -149,7 +149,7 @@ DEPENDENCIES
   padrino
   puma
   rake
-  sinatra (= 2.0.2)
+  sinatra (= 2.2.0)
   will_paginate!
 
 RUBY VERSION
