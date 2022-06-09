@@ -1,23 +1,23 @@
 GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: 8113fddf4b506867e9af3aa59fe2df314b79860c
+  remote: https://github.com/mislav/will_paginate.git
+  revision: c732deeba65e709e6c5d223584e2fc4448a12334
   specs:
-    will_paginate (3.3.0)
+    will_paginate (3.3.1)
 
 GIT
-  remote: git://github.com/stephenreid321/activate-admin.git
-  revision: 96fba7fdffed273ece9310a68985b857ded37acf
+  remote: https://github.com/stephenreid321/activate-admin.git
+  revision: ef109899438aeacbd8bcb3f0c82f7e24e99588b1
   specs:
-    activate-admin (0.0.5)
+    activate-admin (0.0.11)
       activate-tools
       padrino
       will_paginate
 
 GIT
-  remote: git://github.com/stephenreid321/activate-tools.git
-  revision: f8e580db12c90b87143bca0eba34dcc54df10790
+  remote: https://github.com/stephenreid321/activate-tools.git
+  revision: c94aaca8b38db33a24eb0d234b128b9985be902b
   specs:
-    activate-tools (0.0.11)
+    activate-tools (0.0.18)
       padrino
 
 GEM
@@ -31,16 +31,16 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     bson (4.9.4)
     concurrent-ruby (1.1.6)
-    connection_pool (2.2.3)
+    connection_pool (2.2.5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
-    http-cookie (1.0.3)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
@@ -51,20 +51,22 @@ GEM
       json (>= 1.8)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mechanize (2.7.6)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0)
-      mime-types (>= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (>= 2.5.2)
-      nokogiri (~> 1.6)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
-    mime-types (3.3.1)
+    mechanize (2.8.5)
+      addressable (~> 2.8)
+      domain_name (~> 0.5, >= 0.5.20190701)
+      http-cookie (~> 1.0, >= 1.0.3)
+      mime-types (~> 3.0)
+      net-http-digest_auth (~> 1.4, >= 1.4.1)
+      net-http-persistent (>= 2.5.2, < 5.0.dev)
+      nokogiri (~> 1.11, >= 1.11.2)
+      rubyntlm (~> 0.6, >= 0.6.3)
+      webrick (~> 1.7)
+      webrobots (~> 0.1.2)
+    mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2022.0105)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.6.1)
     minitest (5.14.1)
     moneta (1.1.1)
     mongo (2.12.1)
@@ -76,12 +78,12 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     net-http-digest_auth (1.4.1)
-    net-http-persistent (4.0.0)
+    net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     nio4r (2.5.2)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
-    ntlm-http (0.1.1)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
     padrino (0.15.0)
       padrino-admin (= 0.15.0)
       padrino-cache (= 0.15.0)
@@ -113,14 +115,16 @@ GEM
       mime-types (< 4)
       padrino-core (= 0.15.0)
     padrino-support (0.15.0)
-    public_suffix (4.0.5)
+    public_suffix (4.0.7)
     puma (4.3.5)
       nio4r (~> 2.0)
+    racc (1.6.0)
     rack (2.2.3)
     rack-protection (2.0.2)
       rack
     rake (13.0.1)
     ruby2_keywords (0.0.2)
+    rubyntlm (0.6.3)
     sinatra (2.0.2)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -133,7 +137,8 @@ GEM
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.7)
+    unf_ext (0.0.8.2)
+    webrick (1.7.0)
     webrobots (0.1.2)
     zeitwerk (2.4.0)
 
