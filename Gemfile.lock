@@ -1,23 +1,23 @@
 GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: 8113fddf4b506867e9af3aa59fe2df314b79860c
+  remote: https://github.com/mislav/will_paginate.git
+  revision: c732deeba65e709e6c5d223584e2fc4448a12334
   specs:
-    will_paginate (3.3.0)
+    will_paginate (3.3.1)
 
 GIT
-  remote: git://github.com/stephenreid321/activate-admin.git
-  revision: 96fba7fdffed273ece9310a68985b857ded37acf
+  remote: https://github.com/stephenreid321/activate-admin.git
+  revision: ef109899438aeacbd8bcb3f0c82f7e24e99588b1
   specs:
-    activate-admin (0.0.5)
+    activate-admin (0.0.11)
       activate-tools
       padrino
       will_paginate
 
 GIT
-  remote: git://github.com/stephenreid321/activate-tools.git
-  revision: f8e580db12c90b87143bca0eba34dcc54df10790
+  remote: https://github.com/stephenreid321/activate-tools.git
+  revision: c94aaca8b38db33a24eb0d234b128b9985be902b
   specs:
-    activate-tools (0.0.11)
+    activate-tools (0.0.18)
       padrino
 
 GEM
@@ -31,8 +31,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     bson (4.9.4)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.3)
@@ -113,7 +113,7 @@ GEM
       mime-types (< 4)
       padrino-core (= 0.15.0)
     padrino-support (0.15.0)
-    public_suffix (4.0.5)
+    public_suffix (4.0.7)
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
